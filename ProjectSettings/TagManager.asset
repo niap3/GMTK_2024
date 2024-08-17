@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: flatrock
+    uniqueID: 540102909
+    locked: 0
+  - name: rockslab
+    uniqueID: 252681405
+    locked: 0
