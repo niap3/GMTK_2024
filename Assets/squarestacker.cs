@@ -1,50 +1,46 @@
 using UnityEngine;
 using UnityEditor;
+using System.Collections.Generic;
 
-public class SquareStackerTool : MonoBehaviour
+public class RectTransformTileStackerTool : MonoBehaviour
 {
-    public GameObject squarePrefab;
-    public int numberOfSquares = 1;
-    public float spacing = 1.0f; // Spacing between squares
+    public List<GameObject> tilePrefabs; 
+    public int numberOfTiles = 1;
+    public float rectHeight = 15.0f;
 
-    // Method to stack squares
-    public void StackSquares()
+    public void StackTiles()
     {
-        if (squarePrefab == null)
-        {
-            Debug.LogError("Square Prefab is not assigned!");
-            return;
-        }
-
-        // Remove existing squares (if any)
         foreach (Transform child in transform)
         {
             DestroyImmediate(child.gameObject);
         }
 
-        // Stack squares
-        for (int i = 0; i < numberOfSquares; i++)
+        float cumulativeHeight = 0.0f;
+
+        for (int i = 0; i < numberOfTiles; i++)
         {
-            Vector3 position = new Vector3(0, i * spacing, 0);
-            GameObject square = Instantiate(squarePrefab, position, Quaternion.identity, transform);
-            square.name = "Square_" + (i + 1);
+            GameObject selectedPrefab = tilePrefabs[Random.Range(0, tilePrefabs.Count)];
+            Debug.Log(selectedPrefab.name + cumulativeHeight);
+            Vector3 position = new(0, cumulativeHeight, 0);
+            var currentInstance = Instantiate(selectedPrefab, position, Quaternion.identity);
+            currentInstance.transform.SetParent(transform, true);
+            cumulativeHeight += rectHeight;
         }
     }
 }
 
-[CustomEditor(typeof(SquareStackerTool))]
-public class SquareStackerToolEditor : Editor
+[CustomEditor(typeof(RectTransformTileStackerTool))]
+public class RectTransformTileStackerToolEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        // Draw the default inspector with the fields
         DrawDefaultInspector();
 
-        SquareStackerTool stackerTool = (SquareStackerTool)target;
+        RectTransformTileStackerTool stackerTool = (RectTransformTileStackerTool)target;
 
-        if (GUILayout.Button("Stack Squares"))
+        if (GUILayout.Button("Stack Tiles"))
         {
-            stackerTool.StackSquares();
+            stackerTool.StackTiles();
         }
     }
 }

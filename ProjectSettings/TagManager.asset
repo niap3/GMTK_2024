@@ -47,3 +47,6 @@ TagManager:
   - name: rockslab
     uniqueID: 252681405
     locked: 0
+  - name: player
+    uniqueID: 3917573051
+    locked: 0
