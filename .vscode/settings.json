@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "GMTK-Climb.sln"
+    "dotnet.defaultSolution": "GMTK_2024.sln"
 }
