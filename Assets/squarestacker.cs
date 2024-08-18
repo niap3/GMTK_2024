@@ -1,46 +1,32 @@
 using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
 
 public class RectTransformTileStackerTool : MonoBehaviour
 {
-    public List<GameObject> tilePrefabs; 
-    public int numberOfTiles = 1;
+    public List<GameObject> tilePrefabs;
+    public int numberOfTiles = 1, stacksAhead = 2;
     public float rectHeight = 15.0f;
 
-    public void StackTiles()
+    private float lastGeneratedY;
+    private readonly List<GameObject> spawnedStacks = new();
+
+    public void GenerateStacksIfNeeded(float capsuleY)
     {
-        foreach (Transform child in transform)
-        {
-            DestroyImmediate(child.gameObject);
-        }
+        while (capsuleY + stacksAhead * rectHeight * numberOfTiles > lastGeneratedY)
+            GenerateStack();
+    }
 
-        float cumulativeHeight = 0.0f;
-
+    private void GenerateStack()
+    {
+        float cumulativeHeight = lastGeneratedY;
         for (int i = 0; i < numberOfTiles; i++)
         {
-            GameObject selectedPrefab = tilePrefabs[Random.Range(0, tilePrefabs.Count)];
-            Debug.Log(selectedPrefab.name + cumulativeHeight);
-            Vector3 position = new(0, cumulativeHeight, 0);
-            var currentInstance = Instantiate(selectedPrefab, position, Quaternion.identity);
-            currentInstance.transform.SetParent(transform, true);
+            GameObject stack = Instantiate(tilePrefabs[Random.Range(0, tilePrefabs.Count)], 
+                                           new Vector3(0, cumulativeHeight, 0), Quaternion.identity, transform);
+            stack.transform.GetChild(0).gameObject.AddComponent<SlabVisibilityController>();
             cumulativeHeight += rectHeight;
+            spawnedStacks.Add(stack);
         }
-    }
-}
-
-[CustomEditor(typeof(RectTransformTileStackerTool))]
-public class RectTransformTileStackerToolEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
-
-        RectTransformTileStackerTool stackerTool = (RectTransformTileStackerTool)target;
-
-        if (GUILayout.Button("Stack Tiles"))
-        {
-            stackerTool.StackTiles();
-        }
+        lastGeneratedY += rectHeight * numberOfTiles;
     }
 }
