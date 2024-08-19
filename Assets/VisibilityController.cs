@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SlabVisibilityController : MonoBehaviour
+public class VisibilityController : MonoBehaviour
 {
     public Camera mainCamera;
     public float destroyDistance = 20.0f;
@@ -17,8 +17,7 @@ public class SlabVisibilityController : MonoBehaviour
     {
         if (transform.position.y < mainCamera.transform.position.y - destroyDistance)
         {
-            Debug.Log($"{gameObject.name} is below the camera and will be destroyed.");
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

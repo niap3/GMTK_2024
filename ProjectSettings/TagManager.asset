@@ -47,6 +47,9 @@ TagManager:
   - name: rockslab
     uniqueID: 252681405
     locked: 0
+  - name: crevice
+    uniqueID: 1429616737
+    locked: 0
   - name: player
     uniqueID: 3917573051
     locked: 0
