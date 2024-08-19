@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class RectTransformTileStackerTool : MonoBehaviour
+public class BGTileStacker : MonoBehaviour
 {
     public List<GameObject> tilePrefabs;
     public int numberOfTiles = 1, stacksAhead = 2;
@@ -23,7 +23,7 @@ public class RectTransformTileStackerTool : MonoBehaviour
         {
             GameObject stack = Instantiate(tilePrefabs[Random.Range(0, tilePrefabs.Count)], 
                                            new Vector3(0, cumulativeHeight, 0), Quaternion.identity, transform);
-            stack.transform.GetChild(0).gameObject.AddComponent<SlabVisibilityController>();
+            stack.transform.GetChild(0).gameObject.AddComponent<VisibilityController>();
             cumulativeHeight += rectHeight;
             spawnedStacks.Add(stack);
         }

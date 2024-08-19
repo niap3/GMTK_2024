@@ -22,7 +22,7 @@ public class RockSlabGenerator : MonoBehaviour
         lastGeneratedY += verticalSpacing;
         float horizontalOffset = Random.Range(-maxHorizontalOffset, maxHorizontalOffset);
         GameObject slab = Instantiate(rockSlabPrefabs[Random.Range(0, rockSlabPrefabs.Count)], new Vector3(horizontalOffset, lastGeneratedY, 0), transform.rotation, transform);
-        slab.transform.GetChild(0).gameObject.AddComponent<SlabVisibilityController>();
+        slab.transform.GetChild(0).gameObject.AddComponent<VisibilityController>();
         spawnedSlabs.Add(slab);
     }
 }

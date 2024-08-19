@@ -7,16 +7,19 @@ public class CapsuleMover : MonoBehaviour
     public GameObject slabGenLeft;
     public GameObject slabGenRight;
     public GameObject bgRockStacker;
+    public GameObject creviceGen;
 
     private RockSlabGenerator slabGenLeftComp;
     private RockSlabGenerator slabGenRightComp;
-    private RectTransformTileStackerTool bgRockStackerComp;
+    private BGTileStacker bgRockStackerComp;
+    private CreviceRandomizer creviceGenComp;
 
     void Start()
     {
         slabGenLeftComp = slabGenLeft.GetComponent<RockSlabGenerator>();
-        slabGenRightComp = slabGenRight.GetComponent<RockSlabGenerator>(); // Corrected this line
-        bgRockStackerComp = bgRockStacker.GetComponent<RectTransformTileStackerTool>();
+        slabGenRightComp = slabGenRight.GetComponent<RockSlabGenerator>(); 
+        bgRockStackerComp = bgRockStacker.GetComponent<BGTileStacker>();
+        creviceGenComp = creviceGen.GetComponent<CreviceRandomizer>();
     }
 
     private void Update()
@@ -30,6 +33,7 @@ public class CapsuleMover : MonoBehaviour
             slabGenLeftComp.GenerateSlabsIfNeeded(transform.position.y);
             slabGenRightComp.GenerateSlabsIfNeeded(transform.position.y);
             bgRockStackerComp.GenerateStacksIfNeeded(transform.position.y);
+            creviceGenComp.CreateLoop(transform.position.y);
         }
     }
 }
