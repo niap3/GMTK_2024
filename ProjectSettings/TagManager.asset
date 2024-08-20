@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: cloud1
+    uniqueID: 2665474015
+    locked: 0
   - name: flatrock
     uniqueID: 540102909
     locked: 0
@@ -52,4 +55,7 @@ TagManager:
     locked: 0
   - name: player
     uniqueID: 3917573051
+    locked: 0
+  - name: cloud2
+    uniqueID: 1131135235
     locked: 0

@@ -20,6 +20,18 @@ public class CapsuleMover : MonoBehaviour
         slabGenRightComp = slabGenRight.GetComponent<RockSlabGenerator>(); 
         bgRockStackerComp = bgRockStacker.GetComponent<BGTileStacker>();
         creviceGenComp = creviceGen.GetComponent<CreviceRandomizer>();
+
+        // Generate initial stacks and slabs
+        for (int i = 0; i < 2; i++)
+        {
+            bgRockStackerComp.GenerateStacksIfNeeded(0f); // Generate 2 stacks initially
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            slabGenLeftComp.GenerateSlabsIfNeeded(0f); // Generate 5 slabs initially
+            slabGenRightComp.GenerateSlabsIfNeeded(0f); 
+        }
     }
 
     private void Update()
