@@ -22,6 +22,6 @@ public class CreviceRandomizer : MonoBehaviour
         GameObject crevice = Instantiate(crevicePrefabs[Random.Range(0, crevicePrefabs.Count)], 
                                          new Vector3(horizontalOffset, lastGeneratedY, 0), 
                                          transform.rotation, transform);
-        crevice.transform.GetChild(0).gameObject.AddComponent<VisibilityController>();
+        crevice.transform.gameObject.AddComponent<VisibilityController>();
     }
 }
